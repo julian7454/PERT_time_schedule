@@ -1,8 +1,11 @@
 import "./styles.css";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DemoItem } from "@mui/x-date-pickers/internals/demo";
 import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import AppBar from "@mui/material/AppBar";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -125,13 +128,15 @@ export default function App() {
           )}
           <hr />
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              sx={{
-                padding: "20px",
-              }}
-              defaultValue={startDate}
-              onChange={(newValue) => setStartDate(newValue ?? new Date())}
-            />
+            <DemoItem label="開始日期">
+              <DatePicker
+                sx={{
+                  paddingBottom: "20px",
+                }}
+                defaultValue={startDate}
+                onChange={(newValue) => setStartDate(newValue ?? new Date())}
+              />
+            </DemoItem>
             {/* <input
                 type="date"
                 value={startDate}
@@ -144,12 +149,21 @@ export default function App() {
               padding: "15px",
             }}
           >
-            預估的到期日：
+            預估的到期日：{" "}
+            <Tooltip title="完成日期會扣除期間的週末，但不會扣除國定假日">
+              <ContactSupportIcon />
+            </Tooltip>
           </Typography>
           <p>樂觀到期日：{optimisticDueDate}</p>
           <p>常規到期日：{regularDueDate}</p>
           <p>悲觀到期日：{pessimisticDueDate}</p>
-          <p>PERT 預估到期日：{dueDate}</p>
+          <p>
+            PERT 預估到期日{" "}
+            <Tooltip title="PERT 的計算公式： (悲觀工時 + 常規工時 × 4 + 樂觀工時) / 6">
+              <ContactSupportIcon />
+            </Tooltip>
+            ：{dueDate}
+          </p>
 
           <hr />
         </Grid>

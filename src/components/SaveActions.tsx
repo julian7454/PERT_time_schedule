@@ -1,7 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { getPlans, savePlans } from "../utils";
 import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
 import Grid from "@mui/material/Grid2";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
@@ -22,6 +24,15 @@ function SaveActions({
   setPlansStorage: React.Dispatch<React.SetStateAction<Plan[]>>;
 }) {
   const planRef = useRef<HTMLInputElement>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [dialogDes, setDialogDes] = useState("");
+  const handleClickOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
 
   return (
     <Box
@@ -64,6 +75,8 @@ function SaveActions({
               const updatedPlans = [newPlan, ...existingPlans]; // 添加新任務
               savePlans(updatedPlans);
               setPlansStorage(updatedPlans);
+              handleClickOpenDialog();
+              setDialogDes("另存新檔成功");
 
               if (planRef.current) {
                 planRef.current.value = "";
@@ -72,6 +85,14 @@ function SaveActions({
           >
             另存新檔
           </Button>
+          <Dialog
+            open={isDialogOpen}
+            onClose={handleCloseDialog}
+            aria-labelledby="alert-dialog-title"
+          >
+            <DialogContent id="alert-dialog-title">{dialogDes}</DialogContent>
+          </Dialog>
+
           <Button
             variant="contained"
             onClick={() => {
@@ -79,7 +100,9 @@ function SaveActions({
               const planIdx = plansStorage.findIndex(
                 (plan) => plan.name === currentPlan
               );
-              alert(planIdx !== -1 ? "存檔成功" : "請另存新檔");
+              //alert(planIdx !== -1 ? "存檔成功" : "請另存新檔");
+              handleClickOpenDialog();
+              setDialogDes(planIdx !== -1 ? "存檔成功" : "請另存新檔");
 
               if (planIdx !== -1) {
                 plansStorage[planIdx].tasks = tasks;
