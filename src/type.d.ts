@@ -15,7 +15,7 @@ type InputTask = Omit<Task, "id" | "mostLikely"> & {
 };
 
 type TaskSingleKeyValue = {
-  [K in keyof Task]: { [P in K]: Task[K] };
+  [K in keyof Task]: Pick<Task, K>;
 }[keyof Task];
 
 type TaskAction =
