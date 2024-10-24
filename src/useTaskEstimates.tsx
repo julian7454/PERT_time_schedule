@@ -33,6 +33,10 @@ const useTaskEstimates = (tasks: Task[], startDate: Date) => {
     );
   }, [sumOfMostLikelyHours, sumOfOptimisticHours, sumOfPessimisticHours]);
 
+  const delayHours = useMemo(() => {
+    return (sumOfPessimisticHours - sumOfOptimisticHours) / 6;
+  }, [sumOfOptimisticHours, sumOfPessimisticHours]);
+
   // 計算到期日
   const regularDueDate = useMemo(
     () =>
@@ -66,15 +70,28 @@ const useTaskEstimates = (tasks: Task[], startDate: Date) => {
     [startDate, expectedHours]
   );
 
+  const delayDate = useMemo(
+    () =>
+      startDate
+        ? calculateDueDateExcludingWeekends(
+            startDate,
+            expectedHours + delayHours
+          )
+        : "",
+    [startDate, delayHours]
+  );
+
   return {
     sumOfMostLikelyHours,
     sumOfOptimisticHours,
     sumOfPessimisticHours,
     expectedHours,
+    delayHours,
     regularDueDate,
     optimisticDueDate,
     pessimisticDueDate,
     dueDate,
+    delayDate,
   };
 };
 
