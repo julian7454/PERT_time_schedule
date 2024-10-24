@@ -1,5 +1,6 @@
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { v4 as uuidv4 } from "uuid";
 
 function OptimisticSelect({
   task,
@@ -34,7 +35,9 @@ function OptimisticSelect({
         .fill(0)
         .map((_, i) => (i + 1) / 10)
         .map((num) => (
-          <MenuItem value={num}>{num}</MenuItem>
+          <MenuItem value={num} key={uuidv4()}>
+            {num}
+          </MenuItem>
         ))}
     </Select>
   );
@@ -72,7 +75,9 @@ function PressimisticSelect({
         .fill(0)
         .map((_, i) => (i + 1) / 10 + 1)
         .map((num) => (
-          <MenuItem value={num}>{num}</MenuItem>
+          <MenuItem value={num} key={uuidv4()}>
+            {num}
+          </MenuItem>
         ))}
     </Select>
   );
