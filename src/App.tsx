@@ -128,7 +128,10 @@ export default function App() {
           )}
           <hr />
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DemoItem label="開始日期">
+            <DemoItem
+              label="開始日期"
+              sx={{ width: "200px", margin: "0 auto" }}
+            >
               <DatePicker
                 sx={{
                   paddingBottom: "20px",
@@ -150,8 +153,11 @@ export default function App() {
             }}
           >
             預估的到期日：{" "}
-            <Tooltip title="完成日期會扣除期間的週末，但不會扣除國定假日">
-              <ContactSupportIcon />
+            <Tooltip
+              title="完成日期會扣除期間的週末，但不會扣除國定假日"
+              enterTouchDelay={0}
+            >
+              <ContactSupportIcon sx={{ fontSize: "30px" }} />
             </Tooltip>
           </Typography>
           <p>樂觀到期日：{optimisticDueDate}</p>
@@ -159,8 +165,11 @@ export default function App() {
           <p>悲觀到期日：{pessimisticDueDate}</p>
           <p>
             PERT 預估到期日{" "}
-            <Tooltip title="PERT 的計算公式： (悲觀工時 + 常規工時 × 4 + 樂觀工時) / 6">
-              <ContactSupportIcon />
+            <Tooltip
+              title="PERT 的計算公式： (悲觀工時 + 常規工時 × 4 + 樂觀工時) ÷ 6"
+              enterTouchDelay={0}
+            >
+              <ContactSupportIcon sx={{ fontSize: "30px" }} />
             </Tooltip>
             ：{dueDate}
           </p>
