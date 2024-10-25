@@ -34,7 +34,7 @@ const useTaskEstimates = (tasks: Task[], startDate: Date) => {
   }, [sumOfMostLikelyHours, sumOfOptimisticHours, sumOfPessimisticHours]);
 
   const delayHours = useMemo(() => {
-    return (sumOfPessimisticHours - sumOfOptimisticHours) / 6;
+    return Math.ceil((sumOfPessimisticHours - sumOfOptimisticHours) / 6);
   }, [sumOfOptimisticHours, sumOfPessimisticHours]);
 
   // 計算到期日
