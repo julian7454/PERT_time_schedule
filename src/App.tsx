@@ -38,10 +38,12 @@ export default function App() {
     sumOfOptimisticHours,
     sumOfPessimisticHours,
     expectedHours,
+    delayHours,
     regularDueDate,
     optimisticDueDate,
     pessimisticDueDate,
     dueDate,
+    delayDate,
   } = useTaskEstimates(tasks, startDate);
 
   return (
@@ -115,6 +117,13 @@ export default function App() {
                 <Typography sx={{ paddingBottom: "15px" }}>
                   PERT 預估完成天數：{Math.ceil(expectedHours / 8)}
                 </Typography>
+                <Typography>
+                  加上標準差 預估完成工時：{expectedHours + delayHours}
+                </Typography>
+                <Typography>
+                  加上標準差 預估完成天數：
+                  {Math.ceil((expectedHours + delayHours) / 8)}
+                </Typography>
               </Box>
               <SaveActions
                 tasks={tasks}
@@ -166,12 +175,22 @@ export default function App() {
           <p>
             PERT 預估到期日{" "}
             <Tooltip
-              title="PERT 的計算公式： (悲觀工時 + 常規工時 × 4 + 樂觀工時) ÷ 6"
+              title="期望到期日計算公式： (悲觀工時 + 常規工時 × 4 + 樂觀工時) ÷ 6"
               enterTouchDelay={0}
             >
               <ContactSupportIcon sx={{ fontSize: "30px" }} />
             </Tooltip>
             ：{dueDate}
+          </p>
+          <p>
+            PERT 預估加上標準差到期日
+            <Tooltip
+              title="標準差表示不確定性的計算公式： (悲觀工時 + 常規工時 × 4 + 樂觀工時) ÷ 6"
+              enterTouchDelay={0}
+            >
+              <ContactSupportIcon sx={{ fontSize: "30px" }} />
+            </Tooltip>
+            ：{delayDate}
           </p>
 
           <hr />
