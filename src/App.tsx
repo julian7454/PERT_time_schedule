@@ -209,7 +209,8 @@ export default function App() {
               flexDirection: "column", // 垂直排列
               justifyContent: plansStorage.length ? "start" : "center", // 垂直置中
               alignItems: "center", // 水平置中
-              height: { md: `calc(100vh - 20px)` }, // 使用整個視口的高度
+              minHeight: { md: `calc(100vh - 20px)` },
+              height: { md: `100%` }, // 使用整個視口的高度
             }}
           >
             {plansStorage.length ? (
