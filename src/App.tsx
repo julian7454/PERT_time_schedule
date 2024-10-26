@@ -23,7 +23,10 @@ import SaveActions from "./components/SaveActions";
 import PlansStorage from "./components/PlansStorage";
 import useTaskEstimates from "./useTaskEstimates";
 import { getPlans } from "./utils";
+import ReactGA from "react-ga4";
 import "normalize.css";
+
+ReactGA.initialize("G-CER9PDZNQX");
 
 export default function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
