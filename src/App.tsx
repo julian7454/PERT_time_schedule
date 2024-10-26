@@ -81,7 +81,7 @@ export default function App() {
           {!!tasks.length && (
             <>
               <TableContainer>
-                <Table sx={{ minWidth: 950 }}>
+                <Table sx={{ minWidth: 1100 }}>
                   <TableHead>
                     <TableRow>
                       {/* <th>ID</th> */}

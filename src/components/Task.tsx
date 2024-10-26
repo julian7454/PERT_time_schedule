@@ -2,7 +2,6 @@ import React, { useCallback } from "react";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Button from "@mui/material/Button";
-import { taskReducer } from "../reducer";
 import { OptimisticSelect, PressimisticSelect } from "./Select";
 import TextField from "@mui/material/TextField";
 
@@ -81,8 +80,9 @@ const Task = React.memo(
         {/* <td>{task.mostLikely}</td> */}
         <TableCell>
           <TextField
-            value={task.mostLikely}
+            value={task.mostLikely ? task.mostLikely : ""}
             type="number"
+            slotProps={{ htmlInput: { min: 1 } }}
             onChange={(e) => {
               updateTasks({
                 mostLikely: Number(e.target.value),

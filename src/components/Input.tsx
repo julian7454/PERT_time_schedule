@@ -42,9 +42,7 @@ function Input({
           <TextField
             label="常規預估工時"
             type="number"
-            inputProps={{
-              min: 1,
-            }}
+            slotProps={{ htmlInput: { min: 1 } }}
             value={taskState.mostLikely}
             onChange={(e) => {
               const payload = e.target.value;
