@@ -47,6 +47,7 @@ function SaveActions({
         ref={planRef}
         label="計畫名稱"
         value={currentPlan}
+        sx={{ marginBottom: { xs: "15px", md: 0 } }}
         onChange={(e) => {
           if (planRef.current) {
             planRef.current.value = e.target.value;
