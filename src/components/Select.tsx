@@ -71,7 +71,7 @@ function PressimisticSelect({
         }
       }}
     >
-      {new Array(10)
+      {new Array(30)
         .fill(0)
         .map((_, i) => (i + 1) / 10 + 1)
         .map((num) => (

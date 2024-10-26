@@ -17,35 +17,49 @@ function Export({
     sumOfOptimisticHours,
     sumOfPessimisticHours,
     expectedHours,
+    delayHours,
     regularDueDate,
     optimisticDueDate,
     pessimisticDueDate,
     dueDate,
+    delayDate,
   } = useTaskEstimates(tasks, startDate);
 
   const handleExport = () => {
-    const exportTasks = tasks.map(({ id, ...rest }) => ({
-      任務名稱: rest.name,
-      常規预估: rest.mostLikely,
-      樂觀乘數: Math.ceil(rest.optimisticMultiplier * rest.mostLikely),
-      悲觀乘数: Math.ceil(rest.pessimisticMultiplier * rest.mostLikely),
-      PERT: "",
-    }));
+    const exportTasks = tasks.map(({ id, ...rest }) => {
+      const optimistic = Math.ceil(rest.optimisticMultiplier * rest.mostLikely);
+      const pessimistic = Math.ceil(
+        rest.pessimisticMultiplier * rest.mostLikely
+      );
+
+      return {
+        任務名稱: rest.name,
+        常規预估: rest.mostLikely,
+        樂觀預估: optimistic,
+        悲觀預估: pessimistic,
+        預估完成工時: Math.ceil(
+          (optimistic + rest.mostLikely * 4 + pessimistic) / 6
+        ),
+        標準差工時: Math.ceil((pessimistic - optimistic) / 6),
+      };
+    });
 
     const totalRow = {
       任務名稱: "總和",
       常規预估: sumOfMostLikelyHours,
-      樂觀乘數: sumOfOptimisticHours,
-      悲觀乘数: sumOfPessimisticHours,
-      PERT: expectedHours,
+      樂觀預估: sumOfOptimisticHours,
+      悲觀預估: sumOfPessimisticHours,
+      預估完成工時: expectedHours,
+      標準差工時: delayHours,
     };
 
     const dueRow = {
       任務名稱: "到期日",
       常規预估: regularDueDate,
-      樂觀乘數: optimisticDueDate,
-      悲觀乘数: pessimisticDueDate,
-      PERT: dueDate,
+      樂觀預估: optimisticDueDate,
+      悲觀預估: pessimisticDueDate,
+      預估完成工時: dueDate,
+      標準差工時: delayDate,
     };
 
     const worksheet = XLSX.utils.json_to_sheet([

@@ -58,6 +58,8 @@ const Task = React.memo(
         });
       });
     };
+    const optimistic = Math.ceil(task.optimisticMultiplier * task.mostLikely);
+    const pessimistic = Math.ceil(task.pessimisticMultiplier * task.mostLikely);
 
     return (
       <TableRow>
@@ -75,9 +77,7 @@ const Task = React.memo(
             }}
           />
         </TableCell>
-        <TableCell>
-          {Math.ceil(task.optimisticMultiplier * task.mostLikely)}
-        </TableCell>
+        <TableCell>{optimistic}</TableCell>
         {/* <td>{task.mostLikely}</td> */}
         <TableCell>
           <TextField
@@ -90,15 +90,17 @@ const Task = React.memo(
             }}
           />
         </TableCell>
-        <TableCell>
-          {Math.ceil(task.pessimisticMultiplier * task.mostLikely)}
-        </TableCell>
+        <TableCell>{pessimistic}</TableCell>
         <TableCell>
           <OptimisticSelect task={task} updateTasks={updateTasks} />
         </TableCell>
         <TableCell>
           <PressimisticSelect task={task} updateTasks={updateTasks} />
         </TableCell>
+        <TableCell>
+          {Math.ceil((optimistic + pessimistic + task.mostLikely * 4) / 6)}
+        </TableCell>
+        <TableCell>{Math.ceil((pessimistic - optimistic) / 6)}</TableCell>
         <TableCell>
           <Button
             variant="outlined"

@@ -91,6 +91,8 @@ export default function App() {
                       <TableCell>悲觀預估</TableCell>
                       <TableCell>樂觀乘數</TableCell>
                       <TableCell>悲觀乘數</TableCell>
+                      <TableCell>期望時數</TableCell>
+                      <TableCell>標準差</TableCell>
                       <TableCell>刪除</TableCell>
                     </TableRow>
                   </TableHead>
@@ -103,6 +105,8 @@ export default function App() {
                       sumOfMostLikelyHours={sumOfMostLikelyHours}
                       sumOfOptimisticHours={sumOfOptimisticHours}
                       sumOfPessimisticHours={sumOfPessimisticHours}
+                      expectedHours={expectedHours}
+                      delayHours={delayHours}
                     />
                   </TableBody>
                 </Table>
@@ -114,13 +118,13 @@ export default function App() {
                 }}
               >
                 <Typography>PERT 預估完成工時：{expectedHours}</Typography>
-                <Typography sx={{ paddingBottom: "15px" }}>
+                <Typography sx={{ paddingBottom: "5px" }}>
                   PERT 預估完成天數：{Math.ceil(expectedHours / 8)}
                 </Typography>
                 <Typography>
                   加上標準差 預估完成工時：{expectedHours + delayHours}
                 </Typography>
-                <Typography>
+                <Typography sx={{ paddingBottom: "20px" }}>
                   加上標準差 預估完成天數：
                   {Math.ceil((expectedHours + delayHours) / 8)}
                 </Typography>
@@ -239,10 +243,14 @@ function CalculateSum({
   sumOfMostLikelyHours,
   sumOfOptimisticHours,
   sumOfPessimisticHours,
+  expectedHours,
+  delayHours,
 }: {
   sumOfMostLikelyHours: number;
   sumOfOptimisticHours: number;
   sumOfPessimisticHours: number;
+  expectedHours: number;
+  delayHours: number;
 }) {
   return (
     <TableRow>
@@ -253,7 +261,8 @@ function CalculateSum({
       <TableCell>{sumOfPessimisticHours}</TableCell>
       <TableCell></TableCell>
       <TableCell></TableCell>
-      <TableCell></TableCell>
+      <TableCell>{expectedHours}</TableCell>
+      <TableCell>{delayHours}</TableCell>
     </TableRow>
   );
 }
