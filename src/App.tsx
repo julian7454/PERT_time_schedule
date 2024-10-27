@@ -153,7 +153,14 @@ export default function App() {
                   paddingBottom: "20px",
                 }}
                 defaultValue={startDate}
-                onChange={(newValue) => setStartDate(newValue ?? new Date())}
+                onChange={(newValue) => {
+                  setStartDate(newValue ?? new Date());
+                  ReactGA.event({
+                    category: "User interaction",
+                    action: "Click",
+                    label: "計畫開始日期",
+                  });
+                }}
               />
             </DemoItem>
             {/* <input

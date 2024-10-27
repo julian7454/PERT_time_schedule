@@ -1,4 +1,5 @@
 import * as XLSX from "xlsx";
+import ReactGA from "react-ga4";
 import { saveAs } from "file-saver";
 import Button from "@mui/material/Button";
 import useTaskEstimates from "../useTaskEstimates";
@@ -79,6 +80,12 @@ function Export({
 
     const blob = new Blob([excelBuffer], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    });
+
+    ReactGA.event({
+      category: "User interaction",
+      action: "Click",
+      label: "匯出",
     });
 
     // 使用 file-saver 保存文件

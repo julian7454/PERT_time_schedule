@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { useState, useRef } from "react";
+import ReactGA from "react-ga4";
 import { getPlans, savePlans } from "../utils";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
@@ -82,6 +83,12 @@ function SaveActions({
               if (planRef.current) {
                 planRef.current.value = "";
               }
+
+              ReactGA.event({
+                category: "User interaction",
+                action: "Click",
+                label: "另存新檔",
+              });
             }}
           >
             另存新檔
@@ -111,6 +118,12 @@ function SaveActions({
                 savePlans(plansStorage);
                 setPlansStorage(plansStorage);
               }
+
+              ReactGA.event({
+                category: "User interaction",
+                action: "Click",
+                label: "存檔",
+              });
             }}
           >
             存檔
