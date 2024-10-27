@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import Grid from "@mui/material/Grid2";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import ReactGA from "react-ga4";
 
 function Input({
   tasks,
@@ -67,6 +68,11 @@ function Input({
             variant="contained"
             disabled={!Number(taskState.mostLikely) || !taskState.name}
             onClick={() => {
+              ReactGA.event({
+                category: "User interaction",
+                action: "Click",
+                label: "加入任務",
+              });
               setTasks([
                 ...tasks,
                 {
